@@ -16,15 +16,13 @@
             <table class="table table-primary table-striped table-hover">
                 <thead>
                     <tr>
-                    <th scope="col">Team</th>
-                    <th onclick="sortColumn('avg_high'); changeColRank(this);" scope="col">Average High Points</th>
-                    <th onclick="sortColumn('sd_high'); changeColRank(this);" scope="col">σ High Goal</th>
-                    <th onclick="sortColumn('avg_low'); changeColRank(this);" scope="col">Average Low Points</th>
-                    <th onclick="sortColumn('sd_low'); changeColRank(this);" scope="col">σ Low Goal</th>
-                    <th onclick="sortColumn('avg_climb'); changeColRank(this);" scope="col">Average Climb Points</th>
-                    <th onclick="sortColumn('sd_climb'); changeColRank(this);" scope="col">σ Climb</th>
-                    <th onclick="sortColumn('med'); changeColRank(this)" scope="col">Median Points</th>
-                    <th onclick="sortColumn('sum'); changeColRank(this)" scope="col">TOTAL</th>
+                    <th scope="col">Name</th>
+                    <th onclick="sortColumn('avg_high'); changeColRank(this);" scope="col">Average # of Vamsis</th>
+                    <th onclick="sortColumn('sd_high'); changeColRank(this);" scope="col">σ of Vamsis</th>
+                    <th onclick="sortColumn('avg_low'); changeColRank(this);" scope="col">Average # of Drums</th>
+                    <th onclick="sortColumn('sd_low'); changeColRank(this);" scope="col">σ of Drums</th>
+                    <th onclick="sortColumn('med'); changeColRank(this)" scope="col">Median # of Instruments</th>
+                    <th onclick="sortColumn('sum'); changeColRank(this)" scope="col">TOTAL # of Instruments</th>
                     </tr>
                 </thead>
                 <tbody id="tableData"></tbody>
@@ -71,8 +69,6 @@
                         <th scope="row">${data.sd_high.toPrecision(3)}</th>
                         <th scope="row">${data.avg_low.toPrecision(3)}</th>
                         <th scope="row">${data.sd_low.toPrecision(3)}</th>
-                        <th scope="row">${data.avg_climb.toPrecision(3)}</th>
-                        <th scope="row">${data.sd_climb.toPrecision(3)}</th>
                         <th scope="row">${data.med.toPrecision(3)}</th>
                         <th scope="row">${data.sum}</th>
                         </tr>`;
@@ -126,7 +122,7 @@
             // }
             for (let i = 0; i < vec.length; i++){
                 teams.push(vec[i][0])
-                total_points = 2*vec[i][1][0][0] + vec[i][1][0][1] + vec[i][1][0][2]
+                total_points = vec[i][1][0][0] + vec[i][1][0][1] + vec[i][1][0][2]
                 bar_data.push(total_points)
             }
 
@@ -136,7 +132,7 @@
                 data: {
                     labels: teams,
                     datasets:[{
-                        label: "Calculated Score",
+                        label: "Total # of Instruments",
                         data: bar_data,
                         fill: false,
                         backgroundColor: "rgb(50, 92, 168)",
@@ -151,7 +147,7 @@
         </script>
         <br>
         <br>
-        <h2 style="margin-left: 0%">ALL TEAMS</h2>
+        <h2 style="margin-left: 0%">ALL MEMBERS</h2>
         <hr style="margin-left: 0%; margin-right: 0%;">
         <br>
         <br>
@@ -168,9 +164,9 @@
                     <thead>
                         <tr>
                         <th scope="col">Rows</th>
-                        <th scope="col">Average Points</th>
-                        <th scope="col">Median Points</th>
-                        <th scope="col">TOTAL</th>
+                        <th scope="col">Average # of Instruments</th>
+                        <th scope="col">Median # of Instruments</th>
+                        <th scope="col">TOTAL # Of Instruments</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -190,9 +186,8 @@
                     <thead>
                         <tr>
                         <th scope="col">Rows</th>
-                        <th scope="col">σ High Goals</th>
-                        <th scope="col">σ Low Goals</th>
-                        <th scope="col">σ Climb</th>
+                        <th scope="col">σ of Vamsis</th>
+                        <th scope="col">σ of Drums</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -200,7 +195,7 @@
                             <th scope="row">1</th>
                             <td id = "sd_high{{ final_data[i][0] }}"></td>
                             <td id = "sd_low{{ final_data[i][0] }}"></td>
-                            <td id = "sd_climb{{ final_data[i][0] }}"></td>
+                            <!-- <td id = "sd_climb{{ final_data[i][0] }}"></td> -->
                         </tr>
                     </tbody>
                 </table>
@@ -280,31 +275,24 @@
                             labels: x,
                             datasets: [
                                 {
-                                    label: "Calculated Total Score",
+                                    label: "Total # of Instruments",
                                     data: y,
                                     fill: false,
                                     borderColor: "rgb(50, 92, 168)",
                                     lineTension: 0.1
                                 },
                                 {
-                                    label: "High Goal",
+                                    label: "Vamsis",
                                     data: high,
                                     fill: false,
                                     borderColor: "rgb(100, 0, 168)",
                                     lineTension: 0.1
                                 },
                                 {
-                                    label: "Low Goal",
+                                    label: "Drums",
                                     data: low,
                                     fill: false,
                                     borderColor: "rgb(255, 202, 0)",
-                                    lineTension: 0.1
-                                },
-                                {
-                                    label: "Climb",
-                                    data: climb, 
-                                    fill: false,
-                                    borderColor: "rgb(255, 150, 0)",
                                     lineTension: 0.1
                                 }
                             ]

@@ -22,11 +22,15 @@ def init_sheet(sheet_num):
     creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
 
     client = gspread.authorize(creds)
-
+	
+    '''
     if sheet_num == 1:
         sheet = client.open("RoboLoco-Scouting-Test").worksheet('teleop')
     if sheet_num == 2:
         sheet = client.open("RoboLoco-Scouting-Test").worksheet('autonomous')
+	'''
+
+    sheet = client.open("RoboLoco-Scouting-Test").worksheet('HSS')
 
     return sheet
 
@@ -63,7 +67,7 @@ def analytics_display(mode, for_search):
     name_set = set([])
 
     for record in data:
-        team_name = record['team_name'] 
+        team_name = record['Name'] 
         if team_name not in name_set:
             name_set.add(team_name)
             graph_data.update({team_name: []})
@@ -72,11 +76,14 @@ def analytics_display(mode, for_search):
             low_goals.update({team_name: []})
             climb_hash.update({team_name: []})
 
-        high_goal = int(record['high_goal'])
-        low_goal = int(record['low_goal'])
-        climb = int(record['climb'])
+        high_goal = int(record['Vamsis'])
+        low_goal = int(record['Drums'])
+        if mode == 'teleop':
+            climb = int(record['climb'])
+        else:
+            climb = 0
 
-        total_score = (2*high_goal) + low_goal + climb
+        total_score = high_goal + low_goal 
 
         graph_data[team_name].append(total_score)
         high_goals[team_name].append(high_goal)
@@ -210,15 +217,9 @@ def observation():
             'team_name': name,
             'high_goal': request.json['high_goal'],
             'low_goal': request.json['low_goal'],
-            'climb': request.json['climb_points'],
-            'penalty': request.json['penalty'],
-            'notes': request.json['notes'],
-            'defense': request.json['defense'],
             'auto_high': request.json['auto_high'],
             'auto_low': request.json['auto_low'],
-            'taxi': request.json['taxi'],
-            'tech_foul': request.json['tech_foul'],
-            'foul': request.json['foul']
+            'notes': request.json['notes']
         }
 
         print(request.json)
@@ -236,8 +237,8 @@ def observation():
 
         # sheets API update calls
         # CHECK MULTIPLIERS FOR AUTO HERE
-        data['auto_high'] *= 4
-        data['auto_low'] *= 2
+        # data['auto_high'] *= 4
+        # data['auto_low'] *= 2
 
         sheet = init_sheet(sheet_num=1)
 
@@ -247,19 +248,9 @@ def observation():
         sheet.update_cell(team_index, 1, data['team_name'])
         sheet.update_cell(team_index, 2, data['high_goal'])
         sheet.update_cell(team_index, 3, data['low_goal'])
-        sheet.update_cell(team_index, 4, data['climb'])
-        sheet.update_cell(team_index, 5, data['penalty'])
-        sheet.update_cell(team_index, 6, data['defense'])
-        sheet.update_cell(team_index, 7, data['tech_foul'])
-        sheet.update_cell(team_index, 8, data['foul'])
-        sheet.update_cell(team_index, 9, True)
-        sheet.update_cell(team_index, 10, data['notes'])
-
-        sheet = init_sheet(sheet_num=2)
-        sheet.update_cell(team_index, 1, data['team_name'])
-        sheet.update_cell(team_index, 2, data['auto_high'])
-        sheet.update_cell(team_index, 3, data['auto_low'])
-        sheet.update_cell(team_index, 4, data['taxi'])
+        sheet.update_cell(team_index, 4, data['auto_high'])
+        sheet.update_cell(team_index, 5, data['auto_low'])
+        sheet.update_cell(team_index, 6, data['notes'])
             
         # sheet.update_cell(2, 1, name)
         return redirect('home.html')

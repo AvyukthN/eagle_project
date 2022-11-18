@@ -2,52 +2,61 @@
 {% block content %}
 <br>
 <br>
-<h1 style="margin-left: 10%" id="team_name_title">Team {{team_name}}</h1>
+<h1 style="margin-left: 10%" id="team_name_title">{{team_name}}</h1>
 <hr style="margin-left: 10%; margin-right: 10%;">
 <br>
 <div>
     <!-- adding button and heading to show the digits -->
     <!-- increment() and decrement() functions on button click-->
+	<!--
     <u>
         <h2 style="margin-left: 10%">Autonomous</h2>
     </u>
+	-->
     <br>
-    <h3 style="margin-left: 10%">Goals Scored</h3>
+    <h3 style="margin-left: 10%">Instruments</h3>
     <br>
     <div style="width: 50%; flex: 1; margin-right: 5%; margin-left: 2.5%;">
-        <button onclick="increment_auto1()" class="btn btn-primary btn-lg" name="balls_shot" style="margin-left: 20%; display: inline-block;">High Goal</button>
+        <button onclick="increment_auto1()" class="btn btn-primary btn-lg" name="balls_shot" style="margin-left: 20%; display: inline-block;">Vamsis</button>
         <button onclick="decrement_auto1()" class="btn btn-primary btn-lg" style="display: inline-block; float: right; margin-right: 5%">Oopsy</button>
         <h2 id="counting1_auto" style="float: right; margin-right: 25%;"></h2>
         <br>
         <br>
-        <button onclick="increment_auto2()" class="btn btn-primary btn-lg" name="balls_shot" style="margin-left: 20%; display: inline-block;">Low Goal</button>
+        <button onclick="increment_auto2()" class="btn btn-primary btn-lg" name="balls_shot" style="margin-left: 20%; display: inline-block;">Drums</button>
         <button onclick="decrement_auto2()" class="btn btn-primary btn-lg" style="display: inline-block; float: right; margin-right: 5%;">Oopsy</button>
         <h3 id="counting2_auto" style="float: right; margin-right: 25%;"></h2>
     </div>
+	<!--
     <br>
     <h3 style="margin-left: 10%">Taxi Pts</h3>
     <br>
     <button onclick="toggle_taxi()" class="btn btn-primary btn-lg" style="margin-left: 12%;">Taxi Achieved</button>
+	-->
     <br>
     <br>
     <br>
     <hr style = "margin-left: 10%; margin-right: 10%">
+	<!--
     <u>
         <h2 style="margin-left: 10%">Teleop</h2>
     </u>
+	-->
     <br>
-    <h2 style="margin-left: 10%">Goals Scored</h2>
+    <h3 style="margin-left: 10%">Decorations</h3>
     <br>
     <div style="display: flex">
         <div style="width: 50%; flex: 1; margin-right: 5%; margin-left: 2.5%;">
-            <button onclick="increment()" class="btn btn-primary btn-lg" name="balls_shot" style="margin-left: 20%; display: inline-block;">High Goal</button>
+            <button onclick="increment()" class="btn btn-primary btn-lg" name="balls_shot" style="margin-left: 20%; display: inline-block;">TableCloth</button>
             <button onclick="decrement1()" class="btn btn-primary btn-lg" style="display: inline-block; float: right; margin-right: 5%">Oopsy</button>
             <h2 id="counting" style="float: right; margin-right: 25%;"></h2>
             <br>
             <br>
-            <button onclick="increment2()" class="btn btn-primary btn-lg" name="balls_shot" style="margin-left: 20%; display: inline-block;">Low Goal</button>
+            <button onclick="increment2()" class="btn btn-primary btn-lg" name="balls_shot" style="margin-left: 20%; display: inline-block;">Banner/Poster/Flag</button>
             <button onclick="decrement2()" class="btn btn-primary btn-lg" style="display: inline-block; float: right; margin-right: 5%;">Oopsy</button>
             <h2 id="counting2" style="float: right; margin-right: 25%;"></h2>
+		</div>
+	</div>
+			<!--
             <br>
             <br>
             <br>
@@ -61,6 +70,8 @@
                     <button type="button" onclick = "increment_climb(this)" id = "15" class="btn btn-secondary climb">Traversal</button>
                 </div>
             </div>
+			-->
+			<!--
             <br>
             <br>
             <br>
@@ -97,7 +108,9 @@
                     <button type="button" id = "stagnant" onclick = "update_move_bool(this)" class="btn btn-danger">ROBOT DID NOT MOVE</button>
                 </div>
             </div>
+			-->
         </div>
+		<!--
         <div style="width: 50%; float: right; margin-top: 11%;">
             <h2>{{ team_name }} | Preview</h2>
             <br>
@@ -141,7 +154,8 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> 
+		-->
     </div>
     <h2 style="margin-left: 10%; margin-top: 3%;">Notes</h2>
     <br>
